@@ -63,13 +63,10 @@ public class MovimentoService {
 	}
 	
 	public ExtratoDTO obterExtratoMovimentos(Long idLoja) throws NegocioException {
-		Optional<Loja> loja = lojaRepository.findById(idLoja);
-		if (!loja.isPresent()) {
-			throw new NegocioException("Loja não encontrada");
-		}
-		
-		List<Movimento> movimentosLoja = movimentoRepository.findByLoja(loja.get());
-		return ExtratoDTO.getExtratoDTO(loja.get(), movimentosLoja);
+		Optional<Loja> optional = Optional.ofNullable(lojaRepository.findById(idLoja).orElseThrow(() -> new NegocioException("Loja não encontrada")));
+		Loja loja = optional.get();		
+		List<Movimento> movimentosLoja = movimentoRepository.findByLoja(loja);
+		return ExtratoDTO.getExtratoDTO(loja, movimentosLoja);
 	}
 
 }
