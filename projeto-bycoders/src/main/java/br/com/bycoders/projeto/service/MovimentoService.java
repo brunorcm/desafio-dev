@@ -12,7 +12,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import br.com.bycoders.projeto.dto.ExtratoDTO;
 import br.com.bycoders.projeto.enums.TipoTransacao;
@@ -32,10 +31,8 @@ public class MovimentoService {
 	private MovimentoRepository movimentoRepository;
 	
 	@Transactional
-	public void inserir(MultipartFile file) throws NegocioException {
+	public void inserir(File arqMovimentos) throws NegocioException {
 		 try {
-			 File arqMovimentos = new File("/tmp/"+file.getOriginalFilename());
-			 file.transferTo(arqMovimentos);
 			 List<Object[]> movimentosObj = MovimentoUtil.parse(arqMovimentos);
 			 for (Object[] obj: movimentosObj) {
 				 Movimento mov = new Movimento();

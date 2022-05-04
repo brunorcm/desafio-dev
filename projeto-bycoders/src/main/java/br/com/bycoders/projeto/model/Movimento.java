@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import br.com.bycoders.projeto.enums.TipoTransacao;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,6 +24,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Movimento {
 	
 	@Id
@@ -49,5 +53,7 @@ public class Movimento {
 	
 	@Column(nullable = false)
 	private LocalTime horaOcorrencia;
+	
+	
 
 }

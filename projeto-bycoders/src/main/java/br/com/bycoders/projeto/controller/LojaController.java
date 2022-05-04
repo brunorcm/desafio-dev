@@ -1,5 +1,8 @@
 package br.com.bycoders.projeto.controller;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,9 +39,11 @@ public class LojaController {
 	}
 	
 	@PostMapping(value = "/movimentos-upload", consumes = "multipart/form-data")	
-	public String enviar(@RequestParam("file")  MultipartFile file, Model model) {
+	public String enviar(@RequestParam("file")  MultipartFile file, Model model) throws IllegalStateException, IOException {
 		try {
-			movimentoService.inserir(file);
+			File arqMovimentos = new File("/tmp/"+file.getOriginalFilename());
+			file.transferTo(arqMovimentos);
+			movimentoService.inserir(arqMovimentos);
 			
 		} catch (NegocioException e) {
 			return "redirect:/index";
