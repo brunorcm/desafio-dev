@@ -58,12 +58,23 @@ Pré-requisitos (As ferramentas abaixo devem estar instaladas em seu ambiente UN
      ```
     $ sudo docker-compose up
     
+    ```
+1. Abra o seu navegador e digite `http://localhost:8080/desafio-dev/`. Se tudo subiu corretamente aparecerá de imediato a tela para envio do arquivo CNAB.
+
 1. Se desejar em algum momento parar os contâineres (aplicação e banco), pode ser executado o comando abaixo:
      ```
     $ sudo docker-compose down
+       
+     ```
+ 
+### Importante
     
-    ```
-1. Abra o seu navegador e digite `http://localhost:8080/desafio-dev/`. Se tudo subiu corretamente aparecerá de imediato a tela para envio do arquivo CNAB.
+Como é a primeira vez que estará executando o projeto, não será necessário executar explicitamente o comando para build da imagem, que seria:
+    
+    $ sudo docker-compose --build
+    
+    
+No entanto, caso haja alguma modificação na aplicação, é preciso que este comando seja executado para criara nova imagem que disponha das atualizações realizadas em código e, posteriormente, subir com o docker-compose.
 
 
 ### Consultando documentação da API
