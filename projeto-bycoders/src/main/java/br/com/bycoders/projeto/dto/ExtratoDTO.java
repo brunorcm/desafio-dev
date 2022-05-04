@@ -13,6 +13,7 @@ import lombok.Setter;
 @Setter
 public class ExtratoDTO {
 	
+	private Long idLoja;
 	private String nomeLoja;
 	private String donoLoja;
 	private List<MovimentoDTO> movimentosLoja = new ArrayList<MovimentoDTO>();
@@ -22,6 +23,7 @@ public class ExtratoDTO {
 		BigDecimal calculoSaldo = BigDecimal.ZERO;
 		ExtratoDTO dto = new ExtratoDTO();
 		if (movimentos != null && !movimentos.isEmpty()) {
+			dto.setIdLoja(loja.getId());
 			dto.setNomeLoja(loja.getNome());
 			dto.setDonoLoja(loja.getDono());
 			

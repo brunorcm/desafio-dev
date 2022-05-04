@@ -3,19 +3,25 @@
 <head>
     <title>Cadastro de Movimentos</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
 </head>
 <body>
 
-<section class="my-5">
+<section>
     <div class="container">
         <div class="row">
-            <div class="col-md-8 mx-auto">
-                <h2>Envio de Movimentos</h2>
-                <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>                
-                 <form method="POST" action="/desafio-dev/api/lojas/movimentos" enctype="multipart/form-data">
+            <div class="col-xs-12">
+                 <h2>Envio de Movimentos</h2>
+                 <form method="POST" action="/desafio-dev/movimentos-upload" enctype="multipart/form-data">
                     <input type="file" name="file" class="form-control-file"/><br />
                    <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>
+                
+                <p style="margin-top: 25px;"><a th:href="@{consultar-movimentos}">Consultar Movimentos</a></p>
+                
+                <div th:if="${errorMessage}">
+			    	<span th:text="${errorMessage}" th:class="errorMessage"></span>
+				</div>
             </div>
         </div>
     </div>

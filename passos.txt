@@ -1,0 +1,23 @@
+projeto para rodar
+
+mvn clean install package
+
+sudo docker-compose build
+
+Caso tenha alguma instalação do mysql rodando na mesma porta, certifique-se de para-la antes.
+sudo service mysql stop
+
+sudo docker network create projeto_network
+
+sudo docker-compose up 
+
+sudo docker exec -it ID_CONTAINER mysql -u root -p
+
+
+para parar os containers
+   
+    sudo docker stop ID_CONTAINER
+    
+    em caso de falha, usar: sudo aa-remove-unknown, depois: sudo docker stop ID_CONTAINER
+
+

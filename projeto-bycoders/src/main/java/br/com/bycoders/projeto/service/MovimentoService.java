@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,8 +66,21 @@ public class MovimentoService {
 	public ExtratoDTO obterExtratoMovimentos(Long idLoja) throws NegocioException {
 		Optional<Loja> optional = Optional.ofNullable(lojaRepository.findById(idLoja).orElseThrow(() -> new NegocioException("Loja não encontrada")));
 		Loja loja = optional.get();		
-		List<Movimento> movimentosLoja = movimentoRepository.findByLoja(loja);
+		List<Movimento> movimentosLoja = movimentoRepository.findByLojaOrderByDataOcorrenciaDescHoraOcorrenciaDesc(loja);
 		return ExtratoDTO.getExtratoDTO(loja, movimentosLoja);
+	}
+	
+	public List<ExtratoDTO> obterExtratos() throws NegocioException {
+		List<ExtratoDTO> extratos = new ArrayList<ExtratoDTO>();
+		List<Loja> lojas = lojaRepository.findAll();
+		if (lojas == null || lojas.isEmpty()) {
+			throw new NegocioException("Não há lojas cadastradas");
+		}
+		for (Loja loja: lojas) {
+			List<Movimento> movimentosLoja = movimentoRepository.findByLojaOrderByDataOcorrenciaDescHoraOcorrenciaDesc(loja);
+			extratos.add(ExtratoDTO.getExtratoDTO(loja, movimentosLoja));
+		}
+		return extratos;
 	}
 
 }

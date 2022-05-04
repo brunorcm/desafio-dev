@@ -11,6 +11,6 @@ import br.com.bycoders.projeto.model.Movimento;
 @Repository
 public interface MovimentoRepository extends JpaRepository<Movimento, Long> {
 	
-	public List<Movimento> findByLoja(Loja loja);
+	public List<Movimento> findByLojaOrderByDataOcorrenciaDescHoraOcorrenciaDesc(Loja loja);
 
 }

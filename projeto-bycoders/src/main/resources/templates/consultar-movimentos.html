@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista Movimentos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>Lista de Movimentos</h2>
+                
+                <div th:switch="${extratos}" style="margin-top: 20px;">
+				    <h2 th:case="null">Não há movimentações</h2>
+				        <div th:case="*" style="float: left">
+				        	<div class="tab">				        		
+				        		<button th:each="extrato, iStat : ${extratos}" th:utext="${extrato.nomeLoja}" 
+				        			th:class = "tablinks"
+				        			th:attr="id=${iStat.first ? 'defaultOpen' : 'extrato.idLoja'}"
+				        			th:onclick="openLoja(event, [[${extrato.idLoja}]]);" ></button>
+				        			
+				        			<script>
+										document.getElementById('defaultOpen').click();
+									</script>
+							</div>
+							
+							<div th:each="extrato: ${extratos}" th:id="${extrato.idLoja}" class="tabcontent">
+							  <h5 th:text="${extrato.nomeLoja}" style="margin-top: 5px;"></h5> 
+				        		<span>Proprietário: </span><span th:text="${extrato.donoLoja}"></span><br/>
+				        		<span>Saldo (R$): </span><span th:text="${extrato.saldo}"></span>
+					            <table style="margin-top: 20px;">
+					                <thead>
+					                    <tr>
+					                        <th>Tipo Transação</th>
+					                        <th>Data/Hora Ocorrência</th>					                        
+					                        <th>CPF</th>
+					                        <th>Cartão</th>
+					                        <th>Valor</th>
+					                    </tr>
+					                </thead>
+					                <tbody>
+						                <tr th:each="movimento : ${extrato.movimentosLoja}">
+						                    <td th:text="${movimento.tipoTransacao}"></td>
+						                    <td th:text="${movimento.dataOcorrencia + ' ' + movimento.hora}"></td>
+						                    <td th:text="${movimento.cpf}"></td>
+						                    <td th:text="${movimento.cartao}"></td>
+						                    <td th:text="${movimento.sinal + ' ' + movimento.valor}"></td>
+						                </tr>
+						            </tbody>
+					        	</table>
+							</div>
+				        	
+				    </div>      
+				    <p><a th:href="@{cadastrar-movimentos}">Cadastrar Movimentos</p>
+				</div>       
+				
+				<script>
+					function openLoja(evt, nomeLoja) {
+					  var i, tabcontent, tablinks;
+					  tabcontent = document.getElementsByClassName("tabcontent");
+					  for (i = 0; i < tabcontent.length; i++) {
+					    tabcontent[i].style.display = "none";
+					  }
+					  tablinks = document.getElementsByClassName("tablinks");
+					  for (i = 0; i < tablinks.length; i++) {
+					    tablinks[i].className = tablinks[i].className.replace(" active", "");
+					  }
+					  document.getElementById(nomeLoja).style.display = "block";
+					  evt.currentTarget.className += " active";
+					}
+					
+					document.getElementById("defaultOpen").click();
+				</script>       
+            </div>
+        </div>
+    </div>
+
+</section>
+
+</body>
+</html>
