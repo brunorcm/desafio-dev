@@ -27,7 +27,7 @@ public class LojaController {
 	}
 	
 	@GetMapping(value = "/consultar-movimentos")
-	public String consultarExtratos(Model model, RedirectAttributes redirectAttributes) {
+	public String consultarMovimentos(Model model, RedirectAttributes redirectAttributes) {
 		try {
 			model.addAttribute("extratos", movimentoService.obterExtratos());
 			return "consultar-movimentos";
@@ -39,7 +39,7 @@ public class LojaController {
 	}
 	
 	@PostMapping(value = "/movimentos-upload", consumes = "multipart/form-data")	
-	public String enviar(@RequestParam("file")  MultipartFile file, Model model) throws IllegalStateException, IOException {
+	public String enviarMovimentos(@RequestParam("file")  MultipartFile file, Model model) throws IllegalStateException, IOException {
 		try {
 			File arqMovimentos = new File("/tmp/"+file.getOriginalFilename());
 			file.transferTo(arqMovimentos);
